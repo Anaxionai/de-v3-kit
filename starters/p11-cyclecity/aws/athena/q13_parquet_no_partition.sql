@@ -1,0 +1,4 @@
+-- CycleCity q13: the same question as q11, from trips_parquet, filtered on the date of started_at only.
+-- Run from cyclecity/ with: uv run python aws/athena/run_query.py aws/athena/q13_parquet_no_partition.sql
+--
+-- TODO(task 12): write the query: no month filter.

@@ -1,0 +1,4 @@
+-- p4: How many rows have a negative quantity but are not cancellations, and how many of them have price 0?
+-- Task 7. Run it from retailbase/ with:
+--   docker exec -i datalab-postgres-1 psql -U de -d retailbase < sql/queries/p4_returns.sql
+-- TODO(task 7): write the query.

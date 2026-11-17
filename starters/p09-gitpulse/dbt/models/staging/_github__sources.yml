@@ -1,0 +1,8 @@
+version: 2
+
+# TODO(task 20): source github on database GITPULSE, schema RAW, with tables events, pushes,
+#   pull_requests and stars, each with a description.
+# TODO(task 20): under the source's config:, loaded_at_field loaded_at, and freshness with
+#   warn_after 1 day and error_after 7 days.
+# TODO(task 23): a models: block for stg_github__pull_requests, with an accepted_values test on
+#   action listing the values you counted.

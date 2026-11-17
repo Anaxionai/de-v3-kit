@@ -1,0 +1,6 @@
+-- CycleCity q11: the 5 busiest start stations on one day of February 2024 you choose, from raw_trips.
+-- Run from cyclecity/ with: uv run python aws/athena/run_query.py aws/athena/q11_raw_one_day.sql
+--
+-- TODO(task 12): write the query: filter with started_at LIKE '2024-02-<day>%', name the count
+--   trips, and end with ORDER BY trips DESC, start_station_name LIMIT 5, so a tie at fifth place
+--   gives the same rows in q11, q12 and q13.

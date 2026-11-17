@@ -1,0 +1,4 @@
+-- p5: Which pairs of invoice and stock_code are on more than one row, and how many such pairs are there?
+-- Task 7. Run it from retailbase/ with:
+--   docker exec -i datalab-postgres-1 psql -U de -d retailbase < sql/queries/p5_grain.sql
+-- TODO(task 7): write the query.

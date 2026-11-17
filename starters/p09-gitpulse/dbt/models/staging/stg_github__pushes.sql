@@ -1,0 +1,6 @@
+-- stg_github__pushes: one row per push, cleaned, from source github.pushes (RAW.PUSHES).
+-- Staging is the only layer that reads RAW: one source in, no joins, no GROUP BY.
+--
+-- TODO(task 21): select from source('github', 'pushes'), inside double curly braces.
+--   Columns: clear names for the columns of RAW.PUSHES, plus event_date (the UTC date of created_at).
+--   Call the clean_actor macro for actor_login and is_bot.

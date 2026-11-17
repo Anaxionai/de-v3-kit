@@ -1,0 +1,2 @@
+# Power BI files hold a copy of all the data in the model: keep them out of Git.
+*.pbix

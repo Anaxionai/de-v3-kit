@@ -1,0 +1,4 @@
+-- p3: How many rows have no customer_id, and what share of all rows is that?
+-- Task 7. Run it from retailbase/ with:
+--   docker exec -i datalab-postgres-1 psql -U de -d retailbase < sql/queries/p3_missing_customers.sql
+-- TODO(task 7): write the query.

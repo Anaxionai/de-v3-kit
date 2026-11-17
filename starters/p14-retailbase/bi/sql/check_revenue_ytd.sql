@@ -1,0 +1,11 @@
+-- check_revenue_ytd
+-- The SQL check for the Revenue YTD measure: revenue for each year and month,
+-- with a running total that starts again at 0 in January of each year.
+-- Revenue means the same as in check_revenue.sql.
+-- Tables: dw.fact_sales f, joined to dw.dim_date d on date_key.
+-- Run it from retailbase/:
+--   docker exec -i datalab-postgres-1 psql -U de -d retailbase < bi/sql/check_revenue_ytd.sql
+--
+-- TODO(task 11): write the SELECT: one row per year and month with its revenue and
+--   the running total for the year so far, ordered by year and month.
+--   Paste the output into evidence.md under "## SQL Revenue YTD".

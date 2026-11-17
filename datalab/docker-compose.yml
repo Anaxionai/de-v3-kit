@@ -1,0 +1,77 @@
+# The data lab: the shared services of the course, on your laptop.
+#
+# Start one profile at a time:
+#   docker compose --profile core up -d
+# Stop it:
+#   docker compose --profile core down
+# Stop it and delete its data:
+#   docker compose --profile core down -v
+#
+# Profiles: core (PostgreSQL), storage (the S3 emulator). README.md has the ports and passwords.
+# The user names, passwords and keys in this file work only on your laptop. Never use them on a real server.
+
+name: datalab
+
+services:
+  # ---------------------------------------------------------------- core ---
+
+  # PostgreSQL 16 with the pgvector extension installed (you switch it on per database).
+  # The first start creates one database per product: see "configs" at the end of this file.
+  postgres:
+    image: pgvector/pgvector:0.8.7-pg16
+    profiles: ["core"]
+    # wal_level=logical lets change data capture (Debezium, P8) read the database's own log.
+    command: ["postgres", "-c", "wal_level=logical"]
+    environment:
+      POSTGRES_USER: de
+      POSTGRES_PASSWORD: de       # local only
+      POSTGRES_DB: de
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    configs:
+      - source: product-databases
+        target: /docker-entrypoint-initdb.d/01-product-databases.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U de -d de"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+  # ------------------------------------------------------------- storage ---
+
+  # Floci: a local AWS on http://localhost:4566. The course uses it mostly as S3.
+  # Keys: access key "test", secret key "test" (fake, local only). Region: ap-south-1.
+  floci:
+    image: floci/floci:2.4.0
+    profiles: ["storage"]
+    environment:
+      FLOCI_DEFAULT_REGION: ap-south-1
+      FLOCI_STORAGE_MODE: hybrid                               # keep buckets and objects across restarts
+      FLOCI_SERVICES_LAMBDA_WARM_POOL_MAX_TOTAL: "2"           # at most 2 idle Lambda containers (saves memory)
+      FLOCI_SERVICES_LAMBDA_CONTAINER_IDLE_TIMEOUT_SECONDS: "120"
+      FLOCI_SERVICES_DUCK_DEFAULT_IMAGE: floci/floci-duck:0.4.1    # the helper that runs Athena queries
+      # IAM policies are not checked unless you start with FLOCI_IAM_ENFORCEMENT=true (see storage/README.md).
+      FLOCI_SERVICES_IAM_ENFORCEMENT_ENABLED: ${FLOCI_IAM_ENFORCEMENT:-false}
+      FLOCI_SERVICES_REDSHIFT_ENDPOINT_HOST: localhost          # Redshift clusters answer on localhost:7100-7104
+    ports:
+      - "4566:4566"
+      - "7100-7104:7100-7104"                                  # one port per Redshift cluster (P11)
+    volumes:
+      - floci-data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock   # Lambda, Athena and Redshift each start a helper container
+
+volumes:
+  postgres-data:
+  floci-data:
+
+configs:
+  # Runs once, when the postgres-data volume is empty.
+  product-databases:
+    content: |
+      CREATE DATABASE tiny;
+      CREATE DATABASE scorebook;
+      CREATE DATABASE retailbase;
+      CREATE DATABASE clearair;
+      CREATE DATABASE careline;

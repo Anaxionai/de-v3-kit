@@ -1,0 +1,5 @@
+-- model.dax: every measure of the RetailBase model, each with its description (task 15).
+--
+-- TODO(task 15): replace this file with the query that Quick queries, "Define all
+--   measures in the model" writes, after you have put one /// description directly
+--   above each MEASURE line and selected "Update model with changes".

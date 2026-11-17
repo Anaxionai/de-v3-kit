@@ -1,0 +1,2 @@
+# Files that never enter the image: docker build skips them.
+# TODO(task 23): list .venv, data, .env, __pycache__ and .pytest_cache, one per line.

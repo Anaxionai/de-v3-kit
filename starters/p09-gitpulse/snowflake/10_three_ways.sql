@@ -1,0 +1,9 @@
+-- GitPulse 10: one question answered three ways (task 12).
+-- Question: which 10 repositories got the most stars on 1 January 2018 (UTC)?
+-- Run from gitpulse/ with: snow sql -f snowflake/10_three_ways.sql
+--
+-- TODO(task 12): first, tag this session's queries with the query tag 'gitpulse-three-ways'.
+-- TODO(task 12): EXPLAIN USING TEXT copies of way 1 and way 2.
+-- TODO(task 12): way 1, from RAW.EVENTS with JSON paths (event type, repository name, created_at).
+-- TODO(task 12): way 2, from RAW.STARS with its typed columns.
+-- TODO(task 12): way 3, exactly the same text as way 2, so it can come from the result cache.

@@ -1,0 +1,12 @@
+-- q05_events_per_hour
+-- Question: how many events happened in each UTC hour of 1 January 2018, and how much
+-- did each hour change on the hour before?
+-- Source table: `githubarchive.day.20180101` (location US).
+-- Your P9 answer: the rows per file in your load checks; one file is one hour
+-- (module 11, task 9, evidence.md, ## Load checks).
+-- Run it from the task folder, dry run first:
+--   bq query --dry_run < gitpulse/bigquery/sql/q05_events_per_hour.sql
+--
+-- TODO(task 7): write the SELECT. One row per hour (0 to 23) with its number of events
+--   and the change on the hour before, computed with LAG. Name only the columns you need;
+--   never SELECT *. Then dry-run it and write its estimate in bigquery/docs/budget.md.

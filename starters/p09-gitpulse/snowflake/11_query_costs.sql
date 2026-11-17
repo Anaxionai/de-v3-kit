@@ -1,0 +1,5 @@
+-- GitPulse 11: what each way cost (task 12).
+--
+-- TODO(task 12): query_text, warehouse_size, total_elapsed_time, execution_time and bytes_scanned
+--   from GITPULSE.INFORMATION_SCHEMA.QUERY_HISTORY_BY_USER(), only for the queries tagged
+--   'gitpulse-three-ways'. The function keeps the last 7 days.

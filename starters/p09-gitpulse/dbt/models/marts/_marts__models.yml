@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: fct_daily_activity
+    # TODO(task 22): a description that states the grain in one sentence.
+    # TODO(task 23): a description for every column; not_null on activity_date, repo_id and
+    #   actor_id; relationships tests (with arguments:) from repo_id to dim_repository and from
+    #   actor_id to dim_actor.
+  - name: dim_repository
+    # TODO(task 23): a description for the model and every column; unique and not_null on repo_id.
+  - name: dim_actor
+    # TODO(task 23): a description for the model and every column; unique and not_null on actor_id.

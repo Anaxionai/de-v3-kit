@@ -1,0 +1,4 @@
+-- p1: Which invoices are in both sheets, and how many rows does each sheet hold for them?
+-- Task 7. Run it from retailbase/ with:
+--   docker exec -i datalab-postgres-1 psql -U de -d retailbase < sql/queries/p1_overlap.sql
+-- TODO(task 7): write the query.

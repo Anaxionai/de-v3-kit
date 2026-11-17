@@ -1,0 +1,14 @@
+-- GitPulse 04: where the raw files land (task 9).
+-- Run from gitpulse/ with: snow sql -f snowflake/04_raw_events.sql
+-- Objects:
+--   file format  GITPULSE.RAW.GHARCHIVE_JSON   JSON, compression detected automatically
+--   stage        GITPULSE.RAW.GHARCHIVE_STAGE  a named internal stage that uses the file format
+--   table        GITPULSE.RAW.EVENTS with the columns
+--                  raw              VARIANT        one whole event
+--                  file_name        STRING         the staged file it came from
+--                  file_row_number  NUMBER         its line in that file
+--                  loaded_at        TIMESTAMP_LTZ  when COPY loaded it
+--
+-- TODO(task 9): create the file format.
+-- TODO(task 9): create the stage, using the file format.
+-- TODO(task 9): create RAW.EVENTS with the four columns above.

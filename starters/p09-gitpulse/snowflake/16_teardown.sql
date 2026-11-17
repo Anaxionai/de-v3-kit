@@ -1,0 +1,8 @@
+-- GitPulse 16: the teardown (task 27). Run as ACCOUNTADMIN, after you have recorded the demo,
+-- saved 99_export_ddl.sql and pasted the credits. Stop the task first, then drop.
+-- Keep GITPULSE_MONITOR: it costs nothing.
+--
+-- TODO(task 27): suspend task GITPULSE.RAW.FLATTEN_NEW_EVENTS.
+-- TODO(task 27): drop databases GITPULSE_CI (if it exists), GITPULSE and SCRATCH.
+-- TODO(task 27): drop warehouse GITPULSE_WH, user GITPULSE_CI and the three GITPULSE_ roles.
+-- TODO(task 27): suspend COMPUTE_WH (an error when it is already suspended is fine).

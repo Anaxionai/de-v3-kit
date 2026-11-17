@@ -1,0 +1,8 @@
+-- GitPulse 05: load the staged files into RAW.EVENTS (task 9; run again in tasks 11 and 24).
+-- Run from gitpulse/ with: snow sql -f snowflake/05_copy_events.sql
+-- COPY remembers which files it has loaded, so running this file again loads only new files.
+--
+-- TODO(task 9): one COPY INTO RAW.EVENTS (raw, file_name, file_row_number, loaded_at) that selects
+--   the event and three metadata columns from the stage: the file name, the row number in the file
+--   and the time the scan started. Load only names that end in .json.gz, and stop the whole load
+--   on the first error.

@@ -1,0 +1,4 @@
+-- CycleCity q12: the same question as q11, from trips_parquet, with the partition filter.
+-- Run from cyclecity/ with: uv run python aws/athena/run_query.py aws/athena/q12_parquet_one_day.sql
+--
+-- TODO(task 12): write the query: filter on month = '202402' and on the date of started_at.

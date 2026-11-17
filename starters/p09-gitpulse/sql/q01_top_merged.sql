@@ -1,0 +1,7 @@
+-- GitPulse q01: the 5 repositories with the most merged pull requests on 1 January 2018,
+-- and how many of those merges were made by bots.
+-- Reads the marts in GITPULSE.MARTS: fct_daily_activity joined to dim_repository and dim_actor.
+-- Run it with a role that may read MARTS, for example:
+--   snow sql --role GITPULSE_READER -f sql/q01_top_merged.sql
+--
+-- TODO(task 22): write the query. Join the fact to both dimensions.

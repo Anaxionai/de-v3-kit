@@ -1,0 +1,3 @@
+-- Sales by the country the customer lived in on the day of the sale. Task 12.
+-- TODO(task 12): join dw.fact_sales to dw.dim_customer on customer_key, and sum amount
+-- for each country.

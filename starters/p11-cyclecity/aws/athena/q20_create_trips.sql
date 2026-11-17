@@ -1,0 +1,16 @@
+-- CycleCity q20: the clean Iceberg table trips, in s3://cyclecity-<your-id>-clean/iceberg/trips/,
+-- partitioned by month. The Glue job (aws/glue/clean_job.py) writes into it, so the types must match.
+-- Run from cyclecity/ with: uv run python aws/athena/run_query.py aws/athena/q20_create_trips.sql
+-- Columns and types, in this order:
+--   ride_id, rideable_type                                   string
+--   started_at, ended_at                                     timestamp (no time zone)
+--   start_station_name, start_station_id,
+--   end_station_name, end_station_id                         string
+--   start_lat, start_lng, end_lat, end_lng                   double
+--   member_casual                                            string
+--   duration_min                                             double
+--   row_hash                                                 string
+--   month                                                    string
+--
+-- TODO(task 21): the CREATE TABLE statement: these columns, PARTITIONED BY (month), the LOCATION
+--   above, and the table property that makes it an Iceberg table.

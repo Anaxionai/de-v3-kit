@@ -1,0 +1,9 @@
+-- int_github__activity_unioned: every activity in one shape, ready to aggregate.
+-- One branch per typed staging model (pushes, pull requests, stars), stacked with UNION ALL.
+-- Every branch gives the same columns: event_date, repo_id, actor_id, loaded_at and five counts,
+-- pushes, commits, prs_opened, prs_merged and stars. A branch fills its own counts and sets the
+-- others to 0.
+--
+-- TODO(task 22): write the three branches, each reading its staging model with ref().
+--   commits comes from commit_count; prs_opened counts action opened; prs_merged counts action
+--   closed when the pull request was merged.

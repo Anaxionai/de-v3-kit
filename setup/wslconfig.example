@@ -1,0 +1,23 @@
+# Course kit: WSL 2 settings. Docker Desktop runs inside WSL 2, so these limits apply to Docker
+# and every container too. Windows keeps the rest of the memory for VS Code, the browser and the rest.
+#
+# Copy this file to your Windows user folder as .wslconfig. In Git Bash:
+#     cp ~/de-kit/setup/wslconfig.example ~/.wslconfig
+# Then run this in PowerShell, and wait 8 seconds before you start Docker Desktop again:
+#     wsl --shutdown
+#
+# The values below are for a laptop with 8 GB of memory.
+# On a laptop with 16 GB of memory, change the two lines to:
+#     memory=8GB
+#     swap=4GB
+
+[wsl2]
+# WSL 2 and Docker may use at most this much memory.
+memory=4GB
+
+# When Linux needs more than its memory, it uses this much disk as slower, extra memory (swap).
+swap=2GB
+
+[experimental]
+# Give memory that Linux no longer uses back to Windows, a little at a time.
+autoMemoryReclaim=gradual

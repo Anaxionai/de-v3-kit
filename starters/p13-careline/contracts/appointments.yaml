@@ -1,0 +1,17 @@
+# The data contract for the clinic's daily appointments files, in the
+# Open Data Contract Standard (ODCS) shape. contract.py reads it.
+# TODO(task 10): fill in every empty key, and add one property per file column.
+apiVersion:        # copy it from the standard's full example
+kind: DataContract
+id:
+version:
+status:
+description:       # name the producer (the clinic system) and the consumer (CareLine)
+schema:
+  - name: appointments
+    properties:
+      # One entry per file column, in file order. For example:
+      # - name: slot_time
+      #   logicalType: string
+      #   required: true
+slaProperties:     # frequency and latency

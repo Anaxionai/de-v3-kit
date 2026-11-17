@@ -1,0 +1,8 @@
+# ClearAir's hourly load on the one-node k3d cluster "de". Apply it from clearair/:
+#   kubectl apply -f k8s/cronjob.yaml
+#
+# TODO(task 26): a batch/v1 CronJob named clearair-load: schedule "15 * * * *", timeZone "Etc/UTC",
+#   concurrencyPolicy Forbid; a job template with backoffLimit 2 and a pod with restartPolicy Never and
+#   one container "loader" (image clearair:0.1.0, args ["load-api"]); settings with envFrom from the
+#   Secret clearair-env, and env DATABASE_URL set to the data lab through host.k3d.internal.
+#   Never write the key in this file: it reaches the pod from the Secret.

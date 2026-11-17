@@ -1,0 +1,7 @@
+-- Trace revenue_rupees in report.daily_summary for one day back to the raw rows.
+-- Run: uv run python -m careline.db sql/trace_revenue.sql
+-- Write the day into the queries (this file runs without parameters).
+--
+-- TODO(task 13): the report value, the same sum recomputed from raw.appointments,
+-- the count and sum per source_file, and 5 contributing rows
+-- (appointment_id, fee_rupees, source_file, loaded_at, and no patient columns).

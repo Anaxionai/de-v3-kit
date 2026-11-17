@@ -1,0 +1,9 @@
+-- GitPulse 13: the service user that CI signs in as (task 26).
+-- Run in Snowsight as ACCOUNTADMIN.
+-- Objects: user GITPULSE_CI (a service user: key pair only, no password); role GITPULSE_TRANSFORMER.
+-- The public key is the one-line text of ~/snowflake-keys/gitpulse_ci_key.pub. The private key
+-- (.p8) never goes into any file in Git.
+--
+-- TODO(task 26): create user GITPULSE_CI as a service user with default role GITPULSE_TRANSFORMER,
+--   set its public key, and grant it GITPULSE_TRANSFORMER and no other role.
+-- TODO(task 26): let GITPULSE_TRANSFORMER create databases on the account, so CI can make its clone.

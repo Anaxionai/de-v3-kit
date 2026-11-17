@@ -1,0 +1,9 @@
+# processed.log, the Delta table and the checkpoint (task 9 and task 13).
+data/
+# Your local settings, if you add any.
+.env
+# uv's environment and tool caches.
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/

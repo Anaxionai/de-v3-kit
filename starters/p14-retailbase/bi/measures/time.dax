@@ -1,0 +1,30 @@
+-- time.dax: RetailBase's year-to-date and last-year measures, as one DAX query (task 11).
+-- First mark dim_date as the date table on full_date (task 11, step 4).
+-- [Revenue] comes from base.dax and is already in the model.
+-- Write each formula after its "=", select Run, and compare every month of 2011
+-- with your SQL checks. When they agree, select "Update model with changes",
+-- and save the query text back into this file.
+-- The file does not run until every formula is written.
+
+DEFINE
+    -- TODO(task 11): Revenue YTD. Revenue from 1 January to the last date in the
+    --   filter context, on dim_date[full_date]. Check: sql/check_revenue_ytd.sql
+    MEASURE fact_sales[Revenue YTD] =
+
+    -- TODO(task 11): Revenue LY. Revenue for the same period one year earlier, on
+    --   dim_date[full_date]. Check: sql/check_revenue_ly.sql
+    MEASURE fact_sales[Revenue LY] =
+
+    -- TODO(task 11): Revenue YoY %. The change from Revenue LY to Revenue, as a
+    --   share of Revenue LY, with DIVIDE. Check: sql/check_revenue_ly.sql
+    MEASURE fact_sales[Revenue YoY %] =
+
+EVALUATE
+    SUMMARIZECOLUMNS (
+        dim_date[year],
+        dim_date[month],
+        "Revenue", [Revenue]
+        -- TODO(task 11): add "Revenue YTD", "Revenue LY" and "Revenue YoY %" in
+        --   the same way, each after a comma.
+    )
+ORDER BY dim_date[year], dim_date[month]

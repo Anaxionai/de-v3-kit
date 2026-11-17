@@ -1,0 +1,7 @@
+-- stg_github__pull_requests: one row per pull request event, cleaned, from source github.pull_requests (RAW.PULL_REQUESTS).
+-- Staging is the only layer that reads RAW: one source in, no joins, no GROUP BY.
+--
+-- TODO(task 21): select from source('github', 'pull_requests'), inside double curly braces.
+--   Columns: clear names for the columns of RAW.PULL_REQUESTS, plus event_date (the UTC date of
+--   created_at).
+--   Call the clean_actor macro for actor_login and is_bot.

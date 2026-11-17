@@ -1,0 +1,7 @@
+-- GitPulse 06: checks on the load (task 9). Paste each result into evidence.md.
+-- Compare the counts with the expected counts in ~/de-kit/data/gharchive/README.md.
+--
+-- TODO(task 9): rows per file_name.
+-- TODO(task 9): total rows and distinct event ids (the id inside raw).
+-- TODO(task 9): rows per event type (the type inside raw, as a string).
+-- TODO(task 9): the COPY_HISTORY rows for GITPULSE.RAW.EVENTS over the last two hours.

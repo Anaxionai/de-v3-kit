@@ -1,0 +1,15 @@
+-- q03_top_merged
+-- Question: which 5 repositories had the most merged pull requests on 1 January 2018
+-- (UTC), and how many of those merges were made by bots (a login that ends in [bot])?
+-- Source table: `githubarchive.day.20180101` (location US).
+-- payload is a JSON string: read its fields with JSON_VALUE, which returns text.
+-- A merge is a PullRequestEvent whose action is closed and whose pull request was merged
+-- (~/de-kit/data/gharchive/README.md lists the payload fields).
+-- Your P9 answer: sql/q01_top_merged.sql and its result (module 11, task 22, evidence.md,
+-- ## Question).
+-- This is the large one: payload holds most of the table's bytes. Dry-run it first:
+--   bq query --dry_run < gitpulse/bigquery/sql/q03_top_merged.sql
+--
+-- TODO(task 7): write the SELECT. One row per repository with its merged pull requests
+--   and how many of them were merged by bots, top 5. Name only the columns you need;
+--   never SELECT *. Then dry-run it and write its estimate in bigquery/docs/budget.md.

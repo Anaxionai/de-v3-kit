@@ -1,0 +1,19 @@
+[project]
+name = "editstream"
+version = "0.1.0"
+description = "EditStream: live Wikipedia edits through Kafka, counted per language by Spark."
+requires-python = ">=3.12"
+dependencies = [
+    "confluent-kafka>=2.16.1",
+    "requests-sse>=0.5.3",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "ruff>=0.17.4",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

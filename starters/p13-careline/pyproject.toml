@@ -1,0 +1,21 @@
+[project]
+name = "careline"
+version = "0.1.0"
+description = "CareLine: a clinic's daily appointments, checked, contracted and masked before anyone reads them."
+requires-python = ">=3.12"
+dependencies = [
+    "great-expectations>=1.25.0",
+    "pandas>=3.1.1",
+    "psycopg[binary]>=3.3.9",
+    "pyyaml>=6.0.3",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "ruff>=0.17.4",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

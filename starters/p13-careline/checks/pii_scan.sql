@@ -1,0 +1,7 @@
+-- Personal data scan: columns downstream of raw whose names are personal data.
+-- check_privacy runs it, and it must return 0 rows.
+--
+-- Look in information_schema.columns, in the schemas clean and report, for the columns
+-- patient_id, full_name, phone, email, date_of_birth, pin_code and reason.
+--
+-- TODO(task 11): the scan query.

@@ -1,0 +1,5 @@
+-- Rebuild one day of clean.appointments from raw.appointments.
+-- build_clean runs it with the parameter %(day)s, the run's day.
+-- Delete the day's rows, then insert them again typed, so a re-run never adds rows.
+--
+-- TODO(task 9): DELETE the day, then INSERT the day's typed rows.

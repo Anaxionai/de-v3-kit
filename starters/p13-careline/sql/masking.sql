@@ -1,0 +1,8 @@
+-- Personal data stops at raw: rebuild clean.patients and one day of clean.appointments.
+-- build_clean runs it with %(day)s in place of sql/clean.sql (task 11).
+--
+-- clean.patients: patient_key (SHA-256 of the salt in raw.pipeline_secret and patient_id, as hex),
+-- gender, an age band, city and the first 3 digits of pin_code. No name, phone, email or birth date.
+-- clean.appointments for the day: patient_key in place of patient_id, and no reason.
+--
+-- TODO(task 11): rebuild clean.patients, then the day's clean.appointments.

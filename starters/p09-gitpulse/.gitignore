@@ -1,0 +1,3 @@
+# Downloaded GH Archive hours and the uv environment stay out of Git.
+data/
+.venv/

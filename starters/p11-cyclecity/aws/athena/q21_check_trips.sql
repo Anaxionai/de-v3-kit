@@ -1,0 +1,6 @@
+-- CycleCity q21: check the Iceberg table trips: per month and rideable_type, the rows and the
+-- distinct ride ids. The two counts must be equal.
+-- Run from cyclecity/ with: uv run python aws/athena/run_query.py aws/athena/q21_check_trips.sql
+--
+-- TODO(task 21): write the query: COUNT(*) and COUNT(DISTINCT ride_id), grouped by month and
+--   rideable_type.

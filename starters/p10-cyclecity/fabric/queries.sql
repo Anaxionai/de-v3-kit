@@ -1,0 +1,4 @@
+-- CycleCity in Fabric: T-SQL for the SQL analytics endpoint of lakehouse cyclecity_lh (task 25).
+--
+-- TODO(task 25): the totals on station_day: the row count and the total departures.
+-- TODO(task 25): Q1 from task 24, written in T-SQL (TOP 5 instead of LIMIT 5).

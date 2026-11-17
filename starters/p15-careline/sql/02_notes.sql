@@ -1,0 +1,12 @@
+-- CareLine part 2: the visit notes, as they arrive and masked.
+-- Run: uv run python -m careline.db sql/02_notes.sql
+-- Make every statement safe to run twice (IF NOT EXISTS). Never put a semicolon in a
+-- comment: careline.db splits the file at semicolons.
+--
+-- raw.visit_notes: the six columns of data/notes/notes_YYYY-MM-DD.csv as TEXT, in file order,
+--   then source_file TEXT and loaded_at TIMESTAMPTZ DEFAULT now(), as raw.appointments in P13.
+--   A note and its correction are two rows with the same note_id.
+-- clean.visit_notes: one row per note, at its newest version, with the masked text only:
+--   note_id (the key), version (an integer), appointment_id, note_type and masked_text.
+--
+-- TODO(task 7): the two tables and their columns.

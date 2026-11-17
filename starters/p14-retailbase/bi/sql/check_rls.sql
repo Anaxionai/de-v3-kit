@@ -1,0 +1,13 @@
+-- check_rls
+-- The SQL check for the Country manager role: the revenue the France manager and
+-- the Germany manager should see in Power BI with View as.
+-- Revenue means the same as in check_revenue.sql. A sale belongs to the country
+-- of the dim_customer row it points at.
+-- Tables: dw.fact_sales f, joined to dw.dim_customer c on customer_key.
+-- The managers' mapping table, dw.country_manager, is warehouse SQL: you write it in
+-- retailbase/sql/05_country_manager.sql (task 13, steps 1 and 2), not in bi/.
+-- Run it from retailbase/:
+--   docker exec -i datalab-postgres-1 psql -U de -d retailbase < bi/sql/check_rls.sql
+--
+-- TODO(task 13): write the SELECT: one row each for France and Germany with its
+--   revenue. Paste the output into evidence.md under "## SQL".

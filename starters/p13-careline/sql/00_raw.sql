@@ -1,0 +1,9 @@
+-- CareLine raw layer: the clinic's files exactly as they arrive.
+-- Run: uv run python -m careline.db sql/00_raw.sql
+--
+-- Schema raw with three tables: raw.patients, raw.doctors and raw.appointments.
+-- Every column of each file is TEXT, in file order (data/clinic/README.md in the kit lists them).
+-- Then two more columns: source_file TEXT (the file's name) and loaded_at TIMESTAMPTZ DEFAULT now().
+-- Make the file safe to run twice (IF NOT EXISTS).
+--
+-- TODO(task 8): CREATE SCHEMA raw and the three tables.

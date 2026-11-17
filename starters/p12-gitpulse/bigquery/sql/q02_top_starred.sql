@@ -1,0 +1,11 @@
+-- q02_top_starred
+-- Question: which 10 repositories got the most stars on 1 January 2018 (UTC)?
+-- A star is a WatchEvent (see ~/de-kit/data/gharchive/README.md).
+-- Source table: `githubarchive.day.20180101` (location US).
+-- Your P9 answer: the top 10 from your three ways (module 11, task 12, evidence.md).
+-- Run it from the task folder, dry run first:
+--   bq query --dry_run < gitpulse/bigquery/sql/q02_top_starred.sql
+--
+-- TODO(task 7): write the SELECT. Count the stars per repository name, rank the
+--   repositories with RANK() and keep the top 10. Name only the columns you need; never
+--   SELECT *. Then dry-run it and write its estimate in bigquery/docs/budget.md.

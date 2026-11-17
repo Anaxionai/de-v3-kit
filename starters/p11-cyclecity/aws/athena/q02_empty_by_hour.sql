@@ -1,0 +1,6 @@
+-- CycleCity q02: for today's dt in raw_status, per UTC hour of last_reported: how many station
+-- reports there were, and how many had num_bikes_available = 0.
+-- Run from cyclecity/ with: uv run python aws/athena/run_query.py aws/athena/q02_empty_by_hour.sql
+--
+-- TODO(task 11): write the query: filter on the dt partition; last_reported is Unix seconds, so
+--   read its hour with from_unixtime.

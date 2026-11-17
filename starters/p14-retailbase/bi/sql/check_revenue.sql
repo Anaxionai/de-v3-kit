@@ -1,0 +1,10 @@
+-- check_revenue
+-- The SQL check for the Revenue measure: revenue for each year.
+-- Revenue is the sum of amount in dw.fact_sales. Cancellation rows have negative
+-- amounts, so they are taken off.
+-- Tables: dw.fact_sales f, joined to dw.dim_date d on date_key.
+-- Run it from retailbase/:
+--   docker exec -i datalab-postgres-1 psql -U de -d retailbase < bi/sql/check_revenue.sql
+--
+-- TODO(task 10): write the SELECT: one row per year with its revenue, ordered by
+--   year. Paste the output into evidence.md under "## SQL Revenue".

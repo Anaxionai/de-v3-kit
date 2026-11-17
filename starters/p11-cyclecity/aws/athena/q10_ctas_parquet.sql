@@ -1,0 +1,8 @@
+-- CycleCity q10: copy raw_trips into trips_parquet: Parquet in
+-- s3://cyclecity-<your-id>-clean/trips_parquet/, partitioned by month.
+-- Run from cyclecity/ with: uv run python aws/athena/run_query.py aws/athena/q10_ctas_parquet.sql
+--
+-- TODO(task 12): write the query: a CREATE TABLE AS with format, external_location and
+--   partitioned_by. Keep the 13 columns of raw_trips: the two times cast to timestamp, the four
+--   coordinates with TRY_CAST to double (some are empty), and month last (the partition column
+--   must be the last selected column).

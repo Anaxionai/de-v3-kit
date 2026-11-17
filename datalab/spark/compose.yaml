@@ -1,0 +1,104 @@
+# Spark for one product. Copy this file into your product folder as compose.yaml.
+# (P8 EditStream: copy it as compose.spark.yaml and include it from the Kafka file. README.md shows how.)
+#
+#   docker compose --profile lite up -d    one container, local mode, 2 GB: for 8 GB laptops
+#   docker compose --profile full up -d    a master and two workers: for 16 GB laptops
+#
+# Run your jobs in the `spark` service, from your product folder:
+#   docker compose exec spark spark-submit jobs/clean.py
+# Stop with the same profile: docker compose --profile lite down
+#
+# The first `up` builds the kit's Spark image once (about 3 minutes): Apache Spark 4.2.1 with
+# Delta Lake 4.4.1, the Kafka source and pytest already inside. Later starts reuse it.
+# Web pages: the running job's Spark UI http://localhost:4040, the history server http://localhost:18080,
+# and in `full` the master http://localhost:8081.
+
+x-spark-image: &spark-image
+  image: de-kit-spark:4.2.1-r2           # change the tag whenever the Dockerfile below changes
+  build:
+    context: .
+    dockerfile_inline: |
+      FROM apache/spark:4.2.1
+      USER root
+      ENV PATH=/opt/spark/bin:/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+          PYTHONPATH=/opt/spark/python:/opt/spark/python/lib/py4j-0.10.9.9-src.zip:/opt/spark/work-dir
+      # pytest for your tests, and the Delta Lake and Kafka jars, downloaded once while the image is built.
+      # (Inside this Compose file, $$ stands for one $ in the Dockerfile.)
+      RUN set -eux; \
+          pip3 install --no-cache-dir pytest==9.2.0; \
+          python3 -c "from pyspark.sql import SparkSession; SparkSession.builder.master('local[1]').config('spark.jars.packages', 'io.delta:delta-spark_4.2_2.13:4.4.1,org.apache.spark:spark-sql-kafka-0-10_2.13:4.2.1').config('spark.jars.ivy', '/tmp/ivy').getOrCreate().stop()"; \
+          for f in /tmp/ivy/jars/*.jar; do \
+            name=$$(basename "$$f" | sed -E 's/^[^_]+_//'); \
+            artifact=$$(echo "$$name" | sed -E 's/-[0-9].*$$//'); \
+            if ls /opt/spark/jars/"$$artifact"-[0-9]*.jar >/dev/null 2>&1; then echo "skip $$name"; \
+            else cp "$$f" /opt/spark/jars/"$$name"; echo "add $$name"; fi; \
+          done; \
+          rm -rf /tmp/ivy
+      # Delta Lake switched on for every job, 1 GB for the driver, and event logs for the history server.
+      RUN mkdir -p /opt/spark/conf /opt/spark/events && printf '%s\n' \
+            'spark.sql.extensions io.delta.sql.DeltaSparkSessionExtension' \
+            'spark.sql.catalog.spark_catalog org.apache.spark.sql.delta.catalog.DeltaCatalog' \
+            'spark.driver.memory 1g' \
+            'spark.eventLog.enabled true' \
+            'spark.eventLog.dir file:///opt/spark/events' \
+            'spark.history.fs.logDirectory file:///opt/spark/events' \
+            > /opt/spark/conf/spark-defaults.conf
+      WORKDIR /opt/spark/work-dir
+  # Root inside the container, so jobs can write to your product folder on Windows and in Codespaces.
+  user: root
+  volumes:
+    - .:/opt/spark/work-dir            # your product folder: jobs/, stream/, tests/, data/
+  extra_hosts:
+    - "host.docker.internal:host-gateway"
+
+services:
+  # The service where you run spark-submit, pyspark and pytest. In `lite` it runs Spark itself
+  # (local mode); in `full` it sends jobs to the master with --master spark://spark-master:7077.
+  # It also runs the history server, which shows finished jobs from the event logs in the spark-events volume.
+  spark:
+    <<: *spark-image
+    profiles: ["lite", "full"]
+    hostname: spark                    # the workers in `full` reach the driver by this name
+    command: ["sh", "-c", "/opt/spark/sbin/start-history-server.sh && exec sleep infinity"]
+    init: true
+    environment:
+      SPARK_DAEMON_MEMORY: 256m        # memory for the history server
+    ports:
+      - "4040:4040"                    # the Spark UI of the job that runs now
+      - "18080:18080"                  # the history server: finished jobs
+    volumes:
+      - .:/opt/spark/work-dir
+      - spark-events:/opt/spark/events
+    mem_limit: 2g
+
+  spark-master:
+    <<: *spark-image
+    profiles: ["full"]
+    command: ["/opt/spark/bin/spark-class", "org.apache.spark.deploy.master.Master", "--host", "spark-master"]
+    ports:
+      - "8081:8080"                    # the master's web page: http://localhost:8081
+    environment:
+      SPARK_DAEMON_MEMORY: 256m
+    mem_limit: 512m
+
+  spark-worker-1:
+    <<: *spark-image
+    profiles: ["full"]
+    command: ["/opt/spark/bin/spark-class", "org.apache.spark.deploy.worker.Worker", "spark://spark-master:7077"]
+    environment: &worker-env
+      SPARK_WORKER_CORES: "1"
+      SPARK_WORKER_MEMORY: 1g
+      SPARK_DAEMON_MEMORY: 256m
+    depends_on: [spark-master]
+    mem_limit: 1536m
+
+  spark-worker-2:
+    <<: *spark-image
+    profiles: ["full"]
+    command: ["/opt/spark/bin/spark-class", "org.apache.spark.deploy.worker.Worker", "spark://spark-master:7077"]
+    environment: *worker-env
+    depends_on: [spark-master]
+    mem_limit: 1536m
+
+volumes:
+  spark-events:                        # event logs of every job, kept between restarts

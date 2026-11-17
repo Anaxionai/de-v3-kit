@@ -1,0 +1,8 @@
+-- ai_check.dax: the three AI questions answered with your own measures (task 14).
+-- Use only your measures, with filters on the dimension tables. Run each query in
+-- DAX query view and paste the results into evidence.md under "## Measures".
+--
+-- TODO(task 14): write one EVALUATE query for each question:
+--   1. Revenue from customers in Germany in 2011.
+--   2. Orders in March 2011, without cancellations.
+--   3. Different customers who bought in 2010.

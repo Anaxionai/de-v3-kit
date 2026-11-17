@@ -1,0 +1,18 @@
+-- CareLine part 2: schema ai, the data for AI.
+-- Run it again after every change: uv run python -m careline.db sql/03_ai.sql
+-- Every statement must be safe to run twice (IF NOT EXISTS, ADD COLUMN IF NOT EXISTS).
+-- Never put a semicolon in a comment: careline.db splits the file at semicolons.
+--
+-- TODO(task 9): first of all, the statement that turns on the vector extension in this
+--   database (task 9, step 2 gives it).
+--
+-- TODO(task 8): schema ai, and table ai.chunks: note_id (references clean.visit_notes),
+--   chunk_no, version, appointment_id, text and word_count, with the key (note_id, chunk_no).
+--
+-- TODO(task 9): the column embedding vector(N) on ai.chunks. N is the vector size in the
+--   kit's data/clinic/models.md, the same number as VECTOR_SIZE in careline/embed.py.
+--
+-- TODO(task 10): ai.visit_facts (note_id, version and the fields of VisitFacts) and
+--   ai.facts_rejected (note_id, version, raw_json, problems).
+--
+-- TODO(task 11): the column embedded_at timestamptz on ai.chunks.

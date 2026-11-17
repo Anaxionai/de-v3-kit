@@ -1,0 +1,12 @@
+-- check_average_order_value
+-- The SQL check for the Average Order Value measure: revenue divided by orders,
+-- for each year.
+-- Use exactly the definitions of check_revenue.sql and check_orders.sql, so that
+-- the three numbers agree with each other.
+-- Tables: dw.fact_sales f, joined to dw.dim_date d on date_key.
+-- Run it from retailbase/:
+--   docker exec -i datalab-postgres-1 psql -U de -d retailbase < bi/sql/check_average_order_value.sql
+--
+-- TODO(task 10): write the SELECT: one row per year with its average order value
+--   rounded to 2 decimals, ordered by year. Paste the output into evidence.md
+--   under "## SQL Average Order Value".

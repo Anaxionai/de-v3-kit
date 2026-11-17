@@ -1,0 +1,44 @@
+{
+  "Comment": "CycleCity pipeline: ingest, transform and check one month. An outline: every state is a Pass until task 23.",
+  "StartAt": "Ingest",
+  "States": {
+    "Ingest": {
+      "Type": "Pass",
+      "Comment": "TODO(task 23): a Task on arn:aws:states:::lambda:invoke on your function, with the execution input ({\"month\": \"YYYYMM\"}) as its payload. Retry FeedUnavailable and Lambda.ServiceException (IntervalSeconds 10, MaxAttempts 2, BackoffRate 2), never FeedNotFound. Catch States.ALL into Alert.",
+      "Next": "Transform"
+    },
+    "Transform": {
+      "Type": "Pass",
+      "Comment": "TODO(task 23): a Task on arn:aws:states:::glue:startJobRun.sync on your job, with the --month argument from the month that Ingest returned. Catch States.ALL into Alert.",
+      "Next": "Check"
+    },
+    "Check": {
+      "Type": "Pass",
+      "Comment": "TODO(task 23): a Task on arn:aws:states:::athena:startQueryExecution.sync in your workgroup and database, running SELECT COUNT(*) - COUNT(DISTINCT ride_id) FROM trips. Catch States.ALL into Alert.",
+      "Next": "Check results"
+    },
+    "Check results": {
+      "Type": "Pass",
+      "Comment": "TODO(task 23): a Task on arn:aws:states:::athena:getQueryResults for the Check query, so the next state can read the duplicate count. Catch States.ALL into Alert.",
+      "Next": "No duplicates?"
+    },
+    "No duplicates?": {
+      "Type": "Pass",
+      "Comment": "TODO(task 23): a Choice on the duplicate count. It arrives as text in ResultSet.Rows[1].Data[0].VarCharValue (Rows[0] is the header), so StringEquals \"0\" goes to Succeed and the Default goes to Alert.",
+      "Next": "Succeed"
+    },
+    "Alert": {
+      "Type": "Pass",
+      "Comment": "TODO(task 23): a Task on arn:aws:states:::lambda:invoke with {\"action\": \"alert\"} and the error as message, then Fail.",
+      "Next": "Fail"
+    },
+    "Succeed": {
+      "Type": "Succeed"
+    },
+    "Fail": {
+      "Type": "Fail",
+      "Error": "CycleCityFailed",
+      "Cause": "A step failed or the check found duplicate rides; see the alert."
+    }
+  }
+}
