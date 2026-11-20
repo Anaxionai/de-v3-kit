@@ -1,0 +1,4 @@
+-- dim_repository: one row per repository (repo_id).
+--
+-- TODO(task 22): from stg_github__events (with ref()), one row per repo_id with its latest repo_name,
+--   the owner part of the name (before the /), and the first and last time it was seen.

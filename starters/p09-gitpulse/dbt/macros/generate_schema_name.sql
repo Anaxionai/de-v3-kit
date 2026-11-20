@@ -1,0 +1,7 @@
+-- generate_schema_name: decides which schema each model is built in.
+-- dbt's default joins the target schema and the custom schema (STAGING_STAGING, STAGING_MARTS).
+-- GitPulse wants the custom schema alone, in upper case: STAGING, MARTS, SNAPSHOTS.
+--
+-- TODO(task 21): copy the default macro from dbt's custom schemas page and change it to return the
+--   custom schema alone, in upper case, when one is set (and the target schema when none is).
+--   The file name and the macro name must both be generate_schema_name.

@@ -1,0 +1,17 @@
+-- GitPulse 03: three roles, each with one job (task 8).
+-- Run as SECURITYADMIN: future grants need MANAGE GRANTS, which SYSADMIN does not have.
+-- The one account-level grant (EXECUTE TASK) needs ACCOUNTADMIN.
+-- Roles:
+--   GITPULSE_LOADER       loads files into RAW and runs the stream task
+--   GITPULSE_TRANSFORMER  reads RAW and builds STAGING, MARTS and SNAPSHOTS (dbt uses it)
+--   GITPULSE_READER       only reads MARTS
+--
+-- TODO(task 8): create the three roles. Grant each one to SYSADMIN and to your own user, and give
+--   each USAGE on warehouse GITPULSE_WH and on database GITPULSE.
+-- TODO(task 8): loader: USAGE on schema RAW; CREATE TABLE, STAGE, FILE FORMAT, STREAM and TASK
+--   on RAW; EXECUTE TASK on the account.
+-- TODO(task 8): transformer: USAGE on RAW and SELECT on all and future tables there;
+--   USAGE, CREATE TABLE and CREATE VIEW on STAGING, MARTS and SNAPSHOTS.
+-- TODO(task 8): reader: USAGE on MARTS and SELECT on all and future tables and views there.
+--
+-- Check: SHOW GRANTS TO ROLE GITPULSE_READER; the reader is refused when it creates a table in RAW.

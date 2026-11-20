@@ -1,0 +1,5 @@
+-- GitPulse q02: the name one renamed repository had at a time you choose.
+-- Reads GITPULSE.SNAPSHOTS.REPOSITORY_NAMES_SNAPSHOT (built in task 25).
+--
+-- TODO(task 25): pick the snapshot row whose validity range (dbt_valid_from to dbt_valid_to)
+--   contains your chosen time. The current row of a repository has dbt_valid_to NULL.

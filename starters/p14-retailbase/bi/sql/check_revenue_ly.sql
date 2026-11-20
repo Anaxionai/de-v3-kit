@@ -1,0 +1,12 @@
+-- check_revenue_ly
+-- The SQL check for the Revenue LY and Revenue YoY % measures: for each month of
+-- 2011, its revenue, the revenue of the same month in 2010, and the change in
+-- per cent, rounded to 1 decimal.
+-- Revenue means the same as in check_revenue.sql.
+-- Tables: dw.fact_sales f, joined to dw.dim_date d on date_key.
+-- Run it from retailbase/:
+--   docker exec -i datalab-postgres-1 psql -U de -d retailbase < bi/sql/check_revenue_ly.sql
+--
+-- TODO(task 11): write the SELECT: one row per month of 2011 with its revenue, the
+--   revenue of the same month a year earlier, and the change in per cent, ordered
+--   by month. Paste the output into evidence.md under "## SQL Revenue LY".

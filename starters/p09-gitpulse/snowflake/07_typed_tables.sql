@@ -1,0 +1,15 @@
+-- GitPulse 07: typed tables from the raw events (task 10).
+-- Run from gitpulse/ with: snow sql -f snowflake/07_typed_tables.sql
+-- Every table starts with the common columns:
+--   event_id, created_at (TIMESTAMP_NTZ), repo_id, repo_name, actor_id, actor_login, file_name, loaded_at
+-- Leave commit author names and emails out of every table: GitPulse does not need personal data.
+-- Cast every path to a real type (::NUMBER, ::STRING, ::TIMESTAMP_NTZ, ::BOOLEAN).
+-- Paths are case-sensitive: copy them from a real event (task 10, step 1).
+--
+-- TODO(task 10): GITPULSE.RAW.PUSHES from PushEvent rows: the common columns, push_id, ref,
+--   commit_count (payload.size) and distinct_commit_count.
+-- TODO(task 10): GITPULSE.RAW.PULL_REQUESTS from PullRequestEvent rows: the common columns, action,
+--   pr_number, pr_id, title, state, is_merged, additions, deletions, changed_files, and language
+--   (from the pull request's base repository).
+-- TODO(task 10): GITPULSE.RAW.STARS from WatchEvent rows (a star is a WatchEvent with action
+--   started): the common columns.

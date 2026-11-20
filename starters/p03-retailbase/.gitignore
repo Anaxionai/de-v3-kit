@@ -1,0 +1,6 @@
+# The raw sales file and the change batch are data: they never go into Git.
+data/
+.env
+.venv/
+__pycache__/
+.ruff_cache/

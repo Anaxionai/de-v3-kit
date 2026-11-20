@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "name": "openaq-api",
+    "website": "/",
+    "page": 1,
+    "limit": 100,
+    "found": 3
+  },
+  "results": [
+    {
+      "id": 900001,
+      "name": "Riverside Park",
+      "locality": "Example City",
+      "timezone": "Asia/Kolkata",
+      "country": {"id": 0, "code": "ZZ", "name": "Made-up country"},
+      "owner": {"id": 1, "name": "Example City Air Office"},
+      "provider": {"id": 1, "name": "Example Provider"},
+      "isMobile": false,
+      "isMonitor": true,
+      "instruments": [{"id": 2, "name": "Government Monitor"}],
+      "sensors": [
+        {"id": 9000011, "name": "pm25 µg/m³", "parameter": {"id": 2, "name": "pm25", "units": "µg/m³", "displayName": "PM2.5"}},
+        {"id": 9000012, "name": "pm10 µg/m³", "parameter": {"id": 1, "name": "pm10", "units": "µg/m³", "displayName": "PM10"}}
+      ],
+      "coordinates": {"latitude": 12.97194, "longitude": 77.59369},
+      "licenses": [
+        {"id": 33, "name": "CC BY 4.0", "attribution": {"name": "Example Provider", "url": null}, "dateFrom": "2020-01-01", "dateTo": null}
+      ],
+      "bounds": [77.59369, 12.97194, 77.59369, 12.97194],
+      "distance": 1203.4,
+      "datetimeFirst": {"utc": "2020-01-01T00:00:00Z", "local": "2020-01-01T05:30:00+05:30"},
+      "datetimeLast": {"utc": "2026-11-12T07:00:00Z", "local": "2026-11-12T12:30:00+05:30"}
+    },
+    {
+      "id": 900002,
+      "name": "Market Street",
+      "locality": "Example City",
+      "timezone": "Asia/Kolkata",
+      "country": {"id": 0, "code": "ZZ", "name": "Made-up country"},
+      "owner": {"id": 1, "name": "Example City Air Office"},
+      "provider": {"id": 1, "name": "Example Provider"},
+      "isMobile": false,
+      "isMonitor": true,
+      "instruments": [{"id": 2, "name": "Government Monitor"}],
+      "sensors": [
+        {"id": 9000021, "name": "no2 µg/m³", "parameter": {"id": 5, "name": "no2", "units": "µg/m³", "displayName": "NO₂ mass"}},
+        {"id": 9000022, "name": "pm25 µg/m³", "parameter": {"id": 2, "name": "pm25", "units": "µg/m³", "displayName": "PM2.5"}}
+      ],
+      "coordinates": {"latitude": 12.98301, "longitude": 77.60412},
+      "licenses": [
+        {"id": 33, "name": "CC BY 4.0", "attribution": {"name": "Example Provider", "url": null}, "dateFrom": "2021-06-01", "dateTo": null}
+      ],
+      "bounds": [77.60412, 12.98301, 77.60412, 12.98301],
+      "distance": 2811.9,
+      "datetimeFirst": {"utc": "2021-06-01T00:00:00Z", "local": "2021-06-01T05:30:00+05:30"},
+      "datetimeLast": {"utc": "2026-11-12T07:00:00Z", "local": "2026-11-12T12:30:00+05:30"}
+    },
+    {
+      "id": 900003,
+      "name": "Hill Road",
+      "locality": "Example City",
+      "timezone": "Asia/Kolkata",
+      "country": {"id": 0, "code": "ZZ", "name": "Made-up country"},
+      "owner": {"id": 2, "name": "Example University Air Lab"},
+      "provider": {"id": 1, "name": "Example Provider"},
+      "isMobile": false,
+      "isMonitor": false,
+      "instruments": [{"id": 3, "name": "Low-cost sensor"}],
+      "sensors": [
+        {"id": 9000031, "name": "pm10 µg/m³", "parameter": {"id": 1, "name": "pm10", "units": "µg/m³", "displayName": "PM10"}}
+      ],
+      "coordinates": {"latitude": 12.95510, "longitude": 77.57002},
+      "licenses": [
+        {"id": 33, "name": "CC BY 4.0", "attribution": {"name": "Example University Air Lab", "url": null}, "dateFrom": "2023-03-01", "dateTo": null}
+      ],
+      "bounds": [77.57002, 12.95510, 77.57002, 12.95510],
+      "distance": 3390.2,
+      "datetimeFirst": {"utc": "2023-03-01T00:00:00Z", "local": "2023-03-01T05:30:00+05:30"},
+      "datetimeLast": {"utc": "2026-11-12T06:00:00Z", "local": "2026-11-12T11:30:00+05:30"}
+    }
+  ]
+}

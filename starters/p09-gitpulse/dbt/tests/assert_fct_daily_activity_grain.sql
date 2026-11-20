@@ -1,0 +1,4 @@
+-- Singular test: the grain of fct_daily_activity. The test passes when the query returns no rows.
+--
+-- TODO(task 23): return every activity_date, repo_id and actor_id that appears more than once in
+--   fct_daily_activity (read with ref()).

@@ -1,0 +1,13 @@
+-- GitPulse 09: load new hours only (task 11).
+-- Run from gitpulse/ with: snow sql -f snowflake/09_stream_and_task.sql
+-- Objects:
+--   stream  GITPULSE.RAW.EVENTS_STREAM       append-only, on GITPULSE.RAW.EVENTS
+--   task    GITPULSE.RAW.FLATTEN_NEW_EVENTS  on warehouse GITPULSE_WH, every 5 minutes,
+--                                           only when the stream has data
+-- A new task starts suspended; the task's steps resume and suspend it with ALTER TASK.
+--
+-- TODO(task 11): create the append-only stream.
+-- TODO(task 11): create the task. Its body is one INSERT ALL with a WHEN branch per event type into
+--   PUSHES, PULL_REQUESTS and STARS, over a SELECT from the stream that gives the same columns as
+--   07_typed_tables.sql. Three separate INSERT statements would not work: the first one consumes
+--   the stream.

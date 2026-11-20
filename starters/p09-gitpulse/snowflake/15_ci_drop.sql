@@ -1,0 +1,3 @@
+-- GitPulse 15: remove the CI database (task 26). CI runs it last, even when the build fails.
+--
+-- TODO(task 26): drop database GITPULSE_CI if it exists.

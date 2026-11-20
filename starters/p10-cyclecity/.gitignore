@@ -1,0 +1,8 @@
+# Terraform's working folder and state stay on your laptop, never in Git.
+.terraform/
+*.tfstate
+*.tfstate.*
+# Secrets, the uv environment and downloaded data stay out too.
+.env
+.venv/
+data/

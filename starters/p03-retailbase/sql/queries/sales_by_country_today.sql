@@ -1,0 +1,3 @@
+-- Sales by the country the customer lives in today. Task 12.
+-- TODO(task 12): join the fact to its customer row, then that row to the current row of
+-- the same customer_id, and sum amount for each current country.

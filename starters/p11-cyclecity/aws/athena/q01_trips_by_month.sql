@@ -1,0 +1,4 @@
+-- CycleCity q01: trips and member trips per month, from raw_trips, oldest month first.
+-- Run from cyclecity/ with: uv run python aws/athena/run_query.py aws/athena/q01_trips_by_month.sql
+--
+-- TODO(task 11): write the query: group by month; member trips have member_casual = 'member'.

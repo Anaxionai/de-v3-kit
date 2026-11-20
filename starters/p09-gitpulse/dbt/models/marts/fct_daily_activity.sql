@@ -1,0 +1,12 @@
+-- fct_daily_activity: the daily activity fact.
+-- Keys: activity_date, repo_id, actor_id. Measures: pushes, commits, prs_opened, prs_merged, stars,
+-- and loaded_at (the latest load time of the rows behind each fact row).
+--
+-- TODO(task 22): from int_github__activity_unioned (with ref()), group by event_date AS
+--   activity_date, repo_id and actor_id; sum the five counts; keep MAX(loaded_at) AS loaded_at.
+--   It is a table for now (the marts folder config in dbt_project.yml).
+-- TODO(task 24): make it incremental: a config() call with materialized 'incremental',
+--   incremental_strategy 'merge' and unique_key ['activity_date', 'repo_id', 'actor_id'].
+-- TODO(task 24): inside is_incremental() blocks, a changed_days CTE (the distinct event_date of rows
+--   whose loaded_at is later than MAX(loaded_at) in this table, read through this), and a filter
+--   that keeps only rows of those days, so each changed day is recomputed in full.

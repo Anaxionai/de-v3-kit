@@ -1,0 +1,37 @@
+-- base.dax: RetailBase's five base measures, as one DAX query (task 10).
+-- In Power BI Desktop, open DAX query view, paste this file, write each formula
+-- after its "=", then select Run. Compare every number with your SQL checks.
+-- When they agree, select "Update model with changes", and save the query text
+-- back into this file. All five measures live on the fact_sales table.
+-- The file does not run until every formula is written.
+
+DEFINE
+    -- TODO(task 10): Revenue. The sum of fact_sales[amount]. Cancellation rows are
+    --   negative, so they are taken off. Check: sql/check_revenue.sql
+    MEASURE fact_sales[Revenue] =
+
+    -- TODO(task 10): Units. The sum of fact_sales[quantity].
+    --   Check: sql/check_units.sql
+    MEASURE fact_sales[Units] =
+
+    -- TODO(task 10): Orders. Different invoice_no values among the rows where
+    --   is_cancellation is false. Check: sql/check_orders.sql
+    MEASURE fact_sales[Orders] =
+
+    -- TODO(task 10): Customers. Different dim_customer[customer_id] values with
+    --   sales in the filter context, without customer 0. A customer who moved has
+    --   two keys but is one customer. Check: sql/check_customers.sql
+    MEASURE fact_sales[Customers] =
+
+    -- TODO(task 10): Average Order Value. Revenue divided by Orders, with DIVIDE.
+    --   Check: sql/check_average_order_value.sql
+    MEASURE fact_sales[Average Order Value] =
+
+EVALUATE
+    SUMMARIZECOLUMNS (
+        dim_date[year],
+        "Revenue", [Revenue]
+        -- TODO(task 10): add "Units", "Orders", "Customers" and
+        --   "Average Order Value" in the same way, each after a comma.
+    )
+ORDER BY dim_date[year]

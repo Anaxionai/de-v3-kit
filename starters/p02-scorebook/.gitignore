@@ -1,0 +1,6 @@
+# The downloaded match files, your local settings and build output never go into Git.
+data/
+.env
+.venv/
+__pycache__/
+.ruff_cache/

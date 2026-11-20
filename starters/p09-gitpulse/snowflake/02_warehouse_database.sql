@@ -1,0 +1,10 @@
+-- GitPulse 02: the warehouse, the database and its schemas (task 8).
+-- Run as SYSADMIN in a Snowsight worksheet.
+-- Objects: warehouse GITPULSE_WH; database GITPULSE with schemas RAW, STAGING, MARTS and SNAPSHOTS.
+--
+-- TODO(task 8): create warehouse GITPULSE_WH: X-Small, suspends itself after 60 idle seconds,
+--   and starts suspended, so it bills nothing until its first query.
+-- TODO(task 8): create database GITPULSE and its four schemas.
+-- TODO(task 8): set COMPUTE_WH to suspend after 60 seconds too.
+--
+-- Check: SHOW WAREHOUSES shows GITPULSE_WH as X-Small with auto_suspend 60.

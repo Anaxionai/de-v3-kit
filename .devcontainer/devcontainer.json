@@ -1,0 +1,54 @@
+// The course's dev container: Linux with Docker, uv and Python 3.12, the AWS CLI, kubectl and the GitHub CLI.
+// GitHub Codespaces and VS Code's Dev Containers extension both start it.
+// Copy this .devcontainer folder into your course repository; setup/codespaces.md shows how.
+{
+  "name": "DE course lab",
+  "image": "mcr.microsoft.com/devcontainers/base:3.0.12-ubuntu24.04",
+
+  "features": {
+    // A Docker engine inside the container, so the data lab and the product stacks run here.
+    "ghcr.io/devcontainers/features/docker-in-docker:4": {},
+    "ghcr.io/devcontainers/features/aws-cli:1": {},
+    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {
+      "version": "1.35.4",
+      "helm": "none",
+      "minikube": "none"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+
+  // A 2-core machine (8 GB of memory) is enough for one product stack.
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "8gb"
+  },
+
+  // uv at the course version, Python 3.12 as uv's default everywhere.
+  "postCreateCommand": "curl -LsSf https://astral.sh/uv/0.13.8/install.sh | sh && ~/.local/bin/uv python install 3.12 && ~/.local/bin/uv python pin --global 3.12",
+
+  "remoteEnv": {
+    "PYTHONUTF8": "1",
+    "PATH": "${containerEnv:PATH}:/home/vscode/.local/bin"
+  },
+
+  "forwardPorts": [5432, 4566, 8080, 9092, 8083, 4040, 18080, 8081],
+  "portsAttributes": {
+    "5432": { "label": "PostgreSQL (data lab)", "onAutoForward": "silent" },
+    "4566": { "label": "S3 emulator (data lab)", "onAutoForward": "silent" },
+    "8080": { "label": "Airflow web page", "onAutoForward": "notify" },
+    "9092": { "label": "Kafka", "onAutoForward": "silent" },
+    "8083": { "label": "Kafka Connect", "onAutoForward": "silent" },
+    "4040": { "label": "Spark UI (running job)", "onAutoForward": "notify" },
+    "18080": { "label": "Spark history server", "onAutoForward": "silent" },
+    "8081": { "label": "Spark master", "onAutoForward": "silent" }
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-python.python", "charliermarsh.ruff"],
+      "settings": {
+        "files.eol": "\n"
+      }
+    }
+  }
+}

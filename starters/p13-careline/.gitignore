@@ -1,0 +1,11 @@
+# The generated clinic files: personal data, even if made up. Never commit them.
+data/
+# Your settings and the salt (task 11). Commit .env.example instead.
+.env
+# uv's environment and tool caches.
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+# Great Expectations' local folder, if a tool creates one.
+gx/

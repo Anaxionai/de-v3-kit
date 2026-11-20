@@ -1,0 +1,23 @@
+# GitPulse's dbt connection profile. It holds no secret: every personal value comes from an
+# environment variable, read with env_var(). Your values live in dbt/.env, which Git ignores.
+# dbt finds this file because you run it from gitpulse/dbt/.
+gitpulse:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      # TODO(task 20): account, user and private_key_path, each read with env_var() from
+      #   SNOWFLAKE_ACCOUNT, SNOWFLAKE_USER and SNOWFLAKE_PRIVATE_KEY_PATH.
+      # TODO(task 20): database: GITPULSE.
+      role: GITPULSE_TRANSFORMER
+      warehouse: GITPULSE_WH
+      schema: STAGING
+      threads: 4
+    ci:
+      type: snowflake
+      # TODO(task 20): the same three env_var() lines as dev (CI sets the variables in task 26).
+      # TODO(task 20): database: GITPULSE_CI, the clone that CI builds in.
+      role: GITPULSE_TRANSFORMER
+      warehouse: GITPULSE_WH
+      schema: STAGING
+      threads: 4

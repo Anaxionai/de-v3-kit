@@ -1,0 +1,5 @@
+-- dim_actor: one row per actor (actor_id).
+--
+-- TODO(task 22): from stg_github__events (with ref()), one row per actor_id with its latest
+--   actor_login, is_bot, and the first and last time it was seen. Every actor_id in the fact needs
+--   a row here.

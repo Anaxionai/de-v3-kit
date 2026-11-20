@@ -1,0 +1,10 @@
+-- check_orders
+-- The SQL check for the Orders measure: orders for each year.
+-- An order is one invoice number. Cancelled invoices are not orders
+-- (dw.fact_sales.is_cancellation is true for them).
+-- Tables: dw.fact_sales f, joined to dw.dim_date d on date_key.
+-- Run it from retailbase/:
+--   docker exec -i datalab-postgres-1 psql -U de -d retailbase < bi/sql/check_orders.sql
+--
+-- TODO(task 10): write the SELECT: one row per year with its number of orders,
+--   ordered by year. Paste the output into evidence.md under "## SQL Orders".

@@ -1,0 +1,4 @@
+-- Classify the change batch against the current customer rows. Task 11.
+-- Expect 10 new customers, 40 moves and 10 rows with no change.
+-- TODO(task 11): compare staging.customer_changes with the current rows of
+-- dw.dim_customer, and count the new customers, the moves and the rows with no change.

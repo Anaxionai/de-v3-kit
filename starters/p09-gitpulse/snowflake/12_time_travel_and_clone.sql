@@ -1,0 +1,8 @@
+-- GitPulse 12: Time Travel and a zero-copy clone (task 13).
+-- Write every statement of the task here, in order; run each one with snow sql -q.
+--
+-- TODO(task 13): count RAW.STARS, drop it, count again (an error), find it in
+--   SHOW TABLES HISTORY, bring it back with UNDROP, and count it again.
+-- TODO(task 13): clone RAW.PULL_REQUESTS as RAW.PULL_REQUESTS_TEST; add is_bot to the clone only
+--   and fill it; compare the clone with the real table (row count and DESCRIBE TABLE).
+-- TODO(task 13): drop the clone at the end.

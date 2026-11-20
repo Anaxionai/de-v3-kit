@@ -1,0 +1,9 @@
+-- CycleCity q00: the raw_trips table over the trip CSV files in s3://cyclecity-<your-id>-raw/trips/.
+-- Run from cyclecity/ with: uv run python aws/athena/run_query.py aws/athena/q00_raw_trips.sql
+-- The 13 columns, in the file's order (~/de-kit/data/bikes/README.md):
+--   ride_id, rideable_type, started_at, ended_at, start_station_name, start_station_id,
+--   end_station_name, end_station_id, start_lat, start_lng, end_lat, end_lng, member_casual
+--
+-- TODO(task 11): CREATE EXTERNAL TABLE raw_trips with these columns, every one string;
+--   PARTITIONED BY (month string); the Open CSV SerDe; LOCATION the trips/ prefix above;
+--   and the table property that skips the header line.

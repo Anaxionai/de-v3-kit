@@ -1,0 +1,6 @@
+# The history of repository names: one row per name a repository had, with dbt_valid_from and
+# dbt_valid_to. It reads models/intermediate/int_github__repository_names.sql.
+#
+# TODO(task 25): snapshot repository_names_snapshot with relation ref('int_github__repository_names')
+#   and a config: with schema SNAPSHOTS, unique_key repo_id, strategy check on repo_name, and
+#   updated_at name_first_seen_at.

@@ -1,0 +1,9 @@
+# ClearAir and its own PostgreSQL, started together. Run every command in clearair/:
+#   docker compose up --build loader
+#
+# TODO(task 24): two services.
+#   - db: the PostgreSQL image of the data lab's compose file, user and password de, database clearair,
+#     a named volume, a pg_isready health check, and no published port.
+#   - loader: built from the Dockerfile as clearair:0.1.0, settings from env_file .env,
+#     DATABASE_URL pointing at db:5432 and STATIONDB_URL at host.docker.internal:5433,
+#     started only when db is healthy (depends_on with condition: service_healthy).

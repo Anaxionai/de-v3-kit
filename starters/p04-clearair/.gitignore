@@ -1,0 +1,3 @@
+# The course repository's own .gitignore protects this folder for now.
+# TODO(task 25): your public clearair repository has none, so list .venv/, data/, .env,
+#   __pycache__/ and .pytest_cache/ here before its first commit.

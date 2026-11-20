@@ -1,0 +1,7 @@
+-- The analysts' role: it may read clean and report, and nothing in raw.
+-- Run: uv run python -m careline.db sql/roles.sql
+-- run_sql_file() splits at semicolons, so a DO block does not work through it.
+-- Use plain statements, or run this file with psql:
+--   docker exec -i datalab-postgres-1 psql -U de -d careline < sql/roles.sql
+--
+-- TODO(task 11): role careline_analyst (NOLOGIN), with USAGE and SELECT on clean and report only.

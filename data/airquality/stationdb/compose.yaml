@@ -1,0 +1,70 @@
+# The station database: a small PostgreSQL that plays ClearAir's source system (P4).
+#
+# Start it in this folder:      docker compose up -d
+# Check it is ready:            docker compose ps          (STATUS shows "(healthy)")
+# Open psql inside it:          docker compose exec stationdb psql -U source -d stationdb
+# Stop it (rows are kept):      docker compose down
+# Stop it and delete its rows:  docker compose down -v
+#
+# From your laptop it is localhost:5433 (the data lab already uses 5432).
+# Inside a Compose network it is stationdb:5432.
+# Fill it with:  uv run ~/de-kit/data/airquality/stationdb/change_stations.py --student <your-id> --reset
+# The user name and password work only on your laptop. Never use them on a real server.
+
+name: stationdb
+
+services:
+  stationdb:
+    image: pgvector/pgvector:0.8.7-pg16   # PostgreSQL 16, the version in the kit's VERSIONS.md
+    # wal_level=logical lets change data capture (Debezium, P8 Stretch) read the database's own log.
+    command: ["postgres", "-c", "wal_level=logical"]
+    environment:
+      POSTGRES_USER: source
+      POSTGRES_PASSWORD: source            # local only
+      POSTGRES_DB: stationdb
+    ports:
+      - "5433:5432"                        # laptop port 5433 -> container port 5432
+    volumes:
+      - stationdb-data:/var/lib/postgresql/data   # rows survive "down" and "up"
+    configs:
+      - source: stations-table
+        target: /docker-entrypoint-initdb.d/01-stations.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U source -d stationdb"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+volumes:
+  stationdb-data:
+
+configs:
+  # Runs once, when the stationdb-data volume is empty: creates the empty stations table.
+  stations-table:
+    content: |
+      CREATE TABLE stations (
+          station_id   INTEGER PRIMARY KEY,
+          name         TEXT NOT NULL,
+          city         TEXT NOT NULL,
+          latitude     NUMERIC(8,5) NOT NULL,
+          longitude    NUMERIC(8,5) NOT NULL,
+          operator     TEXT NOT NULL,
+          status       TEXT NOT NULL CHECK (status IN ('active', 'maintenance')),
+          installed_on DATE NOT NULL,
+          updated_at   TIMESTAMPTZ NOT NULL DEFAULT clock_timestamp()
+      );
+
+      CREATE INDEX stations_updated_at_idx ON stations (updated_at);
+
+      -- Every UPDATE stamps the row with the time of the change.
+      CREATE FUNCTION touch_updated_at() RETURNS trigger
+      LANGUAGE plpgsql AS $$$$
+      BEGIN
+          NEW.updated_at := clock_timestamp();
+          RETURN NEW;
+      END;
+      $$$$;
+
+      CREATE TRIGGER stations_touch
+          BEFORE UPDATE ON stations
+          FOR EACH ROW EXECUTE FUNCTION touch_updated_at();

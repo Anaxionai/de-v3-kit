@@ -1,0 +1,10 @@
+-- GitPulse 01: the spending limit for the whole account (task 8).
+-- Run as ACCOUNTADMIN in a Snowsight worksheet: only ACCOUNTADMIN can create a resource monitor.
+-- Object: resource monitor GITPULSE_MONITOR, set at account level, so it covers every warehouse
+-- (GITPULSE_WH and COMPUTE_WH). A second monitor on the warehouse is not needed.
+--
+-- TODO(task 8): create GITPULSE_MONITOR with a credit quota of 20, NOTIFY triggers at 50 and
+--   80 percent, and a SUSPEND_IMMEDIATE trigger at 100 percent.
+-- TODO(task 8): set it on the account with ALTER ACCOUNT.
+--
+-- Check: SHOW RESOURCE MONITORS shows GITPULSE_MONITOR at account level.

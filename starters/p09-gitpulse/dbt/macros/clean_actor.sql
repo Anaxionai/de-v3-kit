@@ -1,0 +1,6 @@
+-- clean_actor(login_column): the cleaning every staging model shares, written once.
+--
+-- TODO(task 21): write macro clean_actor(login_column). It returns two column expressions:
+--   the login, trimmed and in lower case, AS actor_login;
+--   a bot flag, true when the login ends in [bot], AS is_bot.
+--   Every staging model calls it.

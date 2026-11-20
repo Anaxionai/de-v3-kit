@@ -1,0 +1,10 @@
+-- check_units
+-- The SQL check for the Units measure: units sold for each year.
+-- Units is the sum of quantity in dw.fact_sales. Cancellation rows have negative
+-- quantities, so they are taken off, as in Revenue.
+-- Tables: dw.fact_sales f, joined to dw.dim_date d on date_key.
+-- Run it from retailbase/:
+--   docker exec -i datalab-postgres-1 psql -U de -d retailbase < bi/sql/check_units.sql
+--
+-- TODO(task 10): write the SELECT: one row per year with its units, ordered by
+--   year. Paste the output into evidence.md under "## SQL Units".

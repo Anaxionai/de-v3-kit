@@ -1,0 +1,14 @@
+-- check_customers
+-- The SQL check for the Customers measure: different customers who bought in
+-- each year.
+-- A customer is a person (customer_id), not a row of the dimension: a customer
+-- who moved country has two customer_key values but is one customer. The unknown
+-- customer (customer_id 0) is not a customer.
+-- Tables: dw.fact_sales f, joined to dw.dim_date d on date_key and to
+-- dw.dim_customer c on customer_key.
+-- Run it from retailbase/:
+--   docker exec -i datalab-postgres-1 psql -U de -d retailbase < bi/sql/check_customers.sql
+--
+-- TODO(task 10): write the SELECT: one row per year with its number of different
+--   customers, ordered by year. Paste the output into evidence.md under
+--   "## SQL Customers".

@@ -1,0 +1,9 @@
+-- Profile of raw.appointments: the numbers your quality rules rest on.
+-- Run: uv run python -m careline.db checks/profile.sql
+--
+-- For every appointments column: empty values, distinct values, minimum and maximum.
+-- Then: duplicate appointment ids per file, unknown patient ids and unknown doctor ids,
+-- and the formats of raw.patients.phone.
+-- Raw values are text: compare with '' for empty, and cast before a numeric minimum or maximum.
+--
+-- TODO(task 8): one query per question above.

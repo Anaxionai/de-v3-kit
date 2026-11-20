@@ -1,0 +1,6 @@
+# Lint and tests on every push. The live runs happen in your public clearair repository;
+# this file is the copy kept in the course folder.
+#
+# TODO(task 25): on push and pull_request, one job "test" on ubuntu-latest with the steps
+#   actions/checkout and astral-sh/setup-uv (the versions in the kit's VERSIONS.md),
+#   then uv sync --locked, uv run ruff check and uv run pytest -q.

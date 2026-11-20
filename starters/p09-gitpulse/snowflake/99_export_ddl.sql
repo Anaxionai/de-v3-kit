@@ -1,0 +1,4 @@
+-- GitPulse 99: the definitions of everything in database GITPULSE, exported before the teardown.
+--
+-- TODO(task 27): paste here the result of GET_DDL('DATABASE', 'GITPULSE', TRUE), run in a
+--   Snowsight worksheet as ACCOUNTADMIN.

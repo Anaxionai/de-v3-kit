@@ -1,0 +1,3 @@
+# PriceWatch settings. Task 23: move this file into the product folder.
+# TODO(task 23): one line per setting, with the values of your constants:
+# raw_dir, clean_dir, min_days, fill_limit, jump_limit and min_quintal_price.

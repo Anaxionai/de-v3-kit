@@ -1,0 +1,4 @@
+-- p2: How many rows, and how many invoices, are cancellations (the invoice starts with C)?
+-- Task 7. Run it from retailbase/ with:
+--   docker exec -i datalab-postgres-1 psql -U de -d retailbase < sql/queries/p2_cancellations.sql
+-- TODO(task 7): write the query.

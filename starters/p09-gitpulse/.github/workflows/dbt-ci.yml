@@ -1,0 +1,29 @@
+# GitPulse dbt CI: build and test the dbt project in a zero-copy clone on every pull request.
+# The live run is in your public repository gitpulse-dbt; this file is the copy AxReview reads.
+# No key or account value goes in this file: they come from GitHub Actions secrets.
+name: dbt CI
+
+on:
+  pull_request:
+
+jobs:
+  dbt-build:
+    runs-on: ubuntu-latest
+    # TODO(task 26): job env: SNOWFLAKE_ACCOUNT from its secret, SNOWFLAKE_USER GITPULSE_CI, and
+    #   SNOWFLAKE_PRIVATE_KEY_PATH, a file path inside $RUNNER_TEMP (outside the repository).
+    #   Careful: a job-level env value is not expanded by the shell, and the runner context is not
+    #   available there. One way: a step that appends SNOWFLAKE_PRIVATE_KEY_PATH=$RUNNER_TEMP/...
+    #   to the file named by $GITHUB_ENV, so every later step sees the real path.
+    steps:
+      # Placeholder so the outline is a valid workflow. Replace it in task 26.
+      - name: Outline only
+        run: echo "TODO(task 26) replace this outline with the real steps"
+      # TODO(task 26): check out the repository.
+      # TODO(task 26): install uv with astral-sh/setup-uv.
+      # TODO(task 26): write the SNOWFLAKE_CI_PRIVATE_KEY secret to SNOWFLAKE_PRIVATE_KEY_PATH.
+      # TODO(task 26): install the Snowflake CLI with uv tool install snowflake-cli.
+      # TODO(task 26): run snowflake/14_ci_clone.sql with snow sql -x -f and the connection options
+      #   (account, user, authenticator SNOWFLAKE_JWT, private key file, role, warehouse).
+      # TODO(task 26): run uv run dbt build --target ci in working-directory dbt.
+      # TODO(task 26): last, in a step that runs even when the build fails, run
+      #   snowflake/15_ci_drop.sql the same way.

@@ -1,0 +1,6 @@
+-- stg_github__stars: one row per star, cleaned, from source github.stars (RAW.STARS).
+-- Staging is the only layer that reads RAW: one source in, no joins, no GROUP BY.
+--
+-- TODO(task 21): select from source('github', 'stars'), inside double curly braces.
+--   Columns: clear names for the columns of RAW.STARS, plus event_date (the UTC date of created_at).
+--   Call the clean_actor macro for actor_login and is_bot.

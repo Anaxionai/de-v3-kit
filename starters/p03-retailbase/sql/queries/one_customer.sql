@@ -1,0 +1,3 @@
+-- One moved customer's versions, with the sales of each version. Task 11.
+-- TODO(task 11): for one moved customer, each version's customer_key, country, valid_from
+-- and valid_to, with the number of fact rows that point at that version.

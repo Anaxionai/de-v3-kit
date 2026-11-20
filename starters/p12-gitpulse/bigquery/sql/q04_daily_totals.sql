@@ -1,0 +1,17 @@
+-- q04_daily_totals
+-- Question: how many events, pushes and stars were there on 1 January 2018, and on
+-- 2 January 2018 before 06:00 UTC?
+-- Source tables: `githubarchive.day.20180101` and `githubarchive.day.20180102`
+-- (location US). One day table holds all 24 hours of its day.
+-- P9 loaded only hours 0 to 5 of 2 January, so this file compares the same hours.
+-- Your P9 answer: the totals per day after the late hour (module 11, task 24,
+-- evidence.md, ## After).
+-- Run it from the task folder, dry run first:
+--   bq query --dry_run < gitpulse/bigquery/sql/q04_daily_totals.sql
+--
+-- TODO(task 7): write the SELECT. One row per day with its events, pushes and stars.
+--   For 2 January, keep only rows whose created_at is before 2018-01-02 06:00:00 UTC.
+--   Name only the columns you need; never SELECT *. Then dry-run it and write its
+--   estimate in bigquery/docs/budget.md.
+-- Task 7, step 11 dry-runs a second version with the commits of each push added. Do not
+--   save that version here; write its estimate under ## q04 with commits in budget.md.

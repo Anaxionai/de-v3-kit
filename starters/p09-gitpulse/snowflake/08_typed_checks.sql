@@ -1,0 +1,6 @@
+-- GitPulse 08: do the typed tables agree with the raw table? (task 10)
+--
+-- TODO(task 10): each typed table's row count next to the raw count of its event type.
+-- TODO(task 10): with LATERAL FLATTEN over the commits array of each push, count its commits and
+--   compare the count with payload.size.
+-- TODO(task 10): count the pushes where the two numbers differ.

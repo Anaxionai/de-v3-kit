@@ -1,0 +1,14 @@
+-- q01_events_per_type
+-- Question: how many events of each type happened on 1 January 2018 (UTC), and what
+-- share of the day's events is each type?
+-- Source table: `githubarchive.day.20180101` (one table per UTC day, location US).
+-- Write public table names inside backticks, as above.
+-- Your P9 answer: the rows per event type in your load checks (module 11, task 9,
+-- evidence.md, ## Load checks).
+-- Run it from the task folder, dry run first:
+--   bq query --dry_run < gitpulse/bigquery/sql/q01_events_per_type.sql
+--
+-- TODO(task 7): write the SELECT. One row per event type with its number of events and
+--   its share of the day, using SUM(COUNT(*)) OVER () for the day's total. Name only the
+--   columns you need; never SELECT *. Then dry-run it and write its estimate in
+--   bigquery/docs/budget.md.

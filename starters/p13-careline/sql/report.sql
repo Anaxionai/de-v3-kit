@@ -1,0 +1,5 @@
+-- Rebuild one day of report.daily_summary from clean.appointments.
+-- build_report runs it with the parameter %(day)s, the run's day.
+-- Delete the day's row, then insert it again, so a re-run never adds rows.
+--
+-- TODO(task 9): DELETE the day, then INSERT its summary (visits, completed visits, revenue_rupees).

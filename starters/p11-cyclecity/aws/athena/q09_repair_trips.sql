@@ -1,0 +1,5 @@
+-- CycleCity q09: add every month= folder under trips/ to raw_trips as a partition.
+-- Run it after q00, and again after you land a new month.
+-- Run from cyclecity/ with: uv run python aws/athena/run_query.py aws/athena/q09_repair_trips.sql
+--
+-- TODO(task 11): the one statement that loads the partitions of raw_trips (step 10 names it).

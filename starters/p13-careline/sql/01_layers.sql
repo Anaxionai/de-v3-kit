@@ -1,0 +1,11 @@
+-- CareLine clean and report layers.
+-- Run: uv run python -m careline.db sql/01_layers.sql
+--
+-- Schemas clean and report, and these tables:
+--   clean.appointments    typed columns (dates, times, integers), without reason
+--   report.daily_summary  one row per day, with revenue_rupees = the sum of fee_rupees of completed visits
+--   report.check_results  day, suite, Expectation, success, unexpected count
+--
+-- TODO(task 9): the two schemas and the three tables.
+-- TODO(task 11): drop and create the clean tables again: clean.patients and
+-- clean.appointments with patient_key in place of patient_id.

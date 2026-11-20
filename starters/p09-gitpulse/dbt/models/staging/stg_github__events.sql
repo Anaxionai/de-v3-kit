@@ -1,0 +1,8 @@
+-- stg_github__events: one row per GitHub event, cleaned, from source github.events (RAW.EVENTS).
+-- Staging is the only layer that reads RAW: one source in, no joins, no GROUP BY.
+--
+-- TODO(task 21): select from source('github', 'events'), inside double curly braces.
+--   Columns: event_id, event_type, created_at, event_date, repo_id, repo_name, actor_id and
+--   loaded_at. The raw column is VARIANT: read each field with a path and cast it, as in
+--   snowflake/07_typed_tables.sql.
+--   Call the clean_actor macro for actor_login and is_bot.

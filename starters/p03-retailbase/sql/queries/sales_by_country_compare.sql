@@ -1,0 +1,3 @@
+-- The two answers side by side: only the countries where they differ. Task 12.
+-- TODO(task 12): put both results side by side with two CTEs and a FULL JOIN on country,
+-- add a difference column, and show only the rows where it is not 0.

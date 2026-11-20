@@ -1,0 +1,141 @@
+# Airflow 3 for one product. Copy this file into your product folder as compose.yaml.
+#
+#   docker compose --profile lite up -d    one container (airflow standalone): for 8 GB laptops
+#   docker compose --profile full up -d    each part in its own container, with PostgreSQL: for 16 GB laptops
+#
+# Web page: http://localhost:8080   Sign in: airflow / airflow (local only)
+# Your product folder is mounted at /opt/airflow/project; DAG files go in its dags/ folder.
+# The command line: docker compose exec airflow airflow dags list   (in `full`: exec airflow-scheduler)
+# Stop with the same profile: docker compose --profile lite down
+# README.md explains every setting.
+
+x-airflow-common: &airflow-common
+  image: apache/airflow:3.4.0-python3.12
+  # Your product's .env, if it exists: its settings reach your DAG code, and
+  # _PIP_ADDITIONAL_REQUIREMENTS in it lists extra Python packages.
+  env_file:
+    - path: .env
+      required: false
+  environment: &airflow-env
+    AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+    AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/project/dags
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
+    AIRFLOW__DAG_PROCESSOR__REFRESH_INTERVAL: "30"           # look for new DAG files every 30 seconds
+    AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_USERS: airflow:admin
+    AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_PASSWORDS_FILE: /opt/airflow/passwords.json
+    PYTHONPATH: /opt/airflow/project                         # so DAGs can import your package
+    # Extra packages, installed at every start. Your .env may replace this list (CareLine does).
+    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-duckdb==2.0.0 boto3==1.44.1}
+    # The data lab, seen from inside this container. These win over the same names in .env.
+    DATALAB_DB_HOST: host.docker.internal                    # PostgreSQL in the core profile (CareLine)
+    AWS_ENDPOINT_URL: http://host.docker.internal:4566       # the S3 emulator in the storage profile (PageLake)
+  # Relative paths in your code (sql/..., data/...) start from your product folder, as on the laptop.
+  working_dir: /opt/airflow/project
+  volumes:
+    - .:/opt/airflow/project                                 # your product folder
+  user: "${AIRFLOW_UID:-50000}:0"                            # Codespaces and Linux: set AIRFLOW_UID in .env
+  extra_hosts:
+    - "host.docker.internal:host-gateway"
+
+services:
+  # ---------------------------------------------------------------- lite ---
+  # Everything in one container: the API server and web page, scheduler, DAG processor and
+  # triggerer, with the local executor and a SQLite database kept in the airflow-home volume.
+  airflow:
+    <<: *airflow-common
+    profiles: ["lite"]
+    # Write the sign-in (user airflow, password airflow; local only), then start everything.
+    command: ["bash", "-c", "echo '{\"airflow\": \"airflow\"}' > /opt/airflow/passwords.json && exec airflow standalone"]
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/opt/airflow/project
+      - airflow-home:/opt/airflow                            # run history (airflow.db) and task logs
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/api/v2/monitor/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 90s
+
+  # ---------------------------------------------------------------- full ---
+  # Each part in its own container, with PostgreSQL as Airflow's own database.
+  airflow-db:
+    image: pgvector/pgvector:0.8.7-pg16
+    profiles: ["full"]
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow     # local only
+      POSTGRES_DB: airflow
+    volumes:
+      - airflow-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U airflow -d airflow"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+  airflow-init:
+    <<: *airflow-common
+    profiles: ["full"]
+    command: ["bash", "-c", "airflow db migrate"]
+    environment: &airflow-full-env
+      <<: *airflow-env
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-db/airflow
+      AIRFLOW__CORE__EXECUTION_API_SERVER_URL: http://airflow-apiserver:8080/execution/
+      AIRFLOW__API_AUTH__JWT_SECRET: local-only-jwt-secret-for-the-course-lab
+      _PIP_ADDITIONAL_REQUIREMENTS: ""
+    volumes: &airflow-full-volumes
+      - .:/opt/airflow/project
+      - airflow-logs:/opt/airflow/logs
+    depends_on:
+      airflow-db:
+        condition: service_healthy
+
+  airflow-apiserver:
+    <<: *airflow-common
+    profiles: ["full"]
+    command: ["bash", "-c", "echo '{\"airflow\": \"airflow\"}' > /opt/airflow/passwords.json && exec airflow api-server"]
+    environment: *airflow-full-env
+    volumes: *airflow-full-volumes
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/api/v2/monitor/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    depends_on: &after-init
+      airflow-init:
+        condition: service_completed_successfully
+
+  airflow-scheduler:
+    <<: *airflow-common
+    profiles: ["full"]
+    command: scheduler
+    environment: *airflow-full-env
+    volumes: *airflow-full-volumes
+    depends_on: *after-init
+
+  airflow-dag-processor:
+    <<: *airflow-common
+    profiles: ["full"]
+    command: dag-processor
+    environment: *airflow-full-env
+    volumes: *airflow-full-volumes
+    depends_on: *after-init
+
+  airflow-triggerer:
+    <<: *airflow-common
+    profiles: ["full"]
+    command: triggerer
+    environment: *airflow-full-env
+    volumes: *airflow-full-volumes
+    depends_on: *after-init
+
+volumes:
+  airflow-home:
+  airflow-db-data:
+  airflow-logs:

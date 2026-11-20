@@ -1,0 +1,4 @@
+-- GitPulse 14: the CI database, built from zero-copy clones (task 26). CI runs it before dbt build.
+--
+-- TODO(task 26): create (or replace) database GITPULSE_CI; clone schemas MARTS and SNAPSHOTS from
+--   GITPULSE into it; create an empty schema GITPULSE_CI.STAGING.

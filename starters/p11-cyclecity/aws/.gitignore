@@ -1,0 +1,4 @@
+# Lambda zips and invoke output stay out of Git. P10's cyclecity/.gitignore already keeps
+# .terraform/ and the Terraform state out, in this folder too.
+*.zip
+out.json

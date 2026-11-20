@@ -1,0 +1,9 @@
+-- row_counts
+-- The number of rows in each of the four RetailBase star tables, in one result:
+-- dw.fact_sales, dw.dim_date, dw.dim_customer and dw.dim_product.
+-- Power BI must show the same four numbers after the import (task 8, step 10).
+-- Run it from retailbase/:
+--   docker exec -i datalab-postgres-1 psql -U de -d retailbase < bi/sql/row_counts.sql
+--
+-- TODO(task 8): write one query that returns one row per table, with the table
+--   name and its row count. Four SELECT COUNT(*) joined with UNION ALL is one way.
